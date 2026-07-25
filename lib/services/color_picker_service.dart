@@ -18,7 +18,10 @@ class ColorPickerService {
         return null;
       }
 
-      if (x < 0 || y < 0 || x >= image.width || y >= image.height) {
+      if (x < 0 ||
+          y < 0 ||
+          x >= image.width ||
+          y >= image.height) {
         return null;
       }
 
@@ -34,5 +37,29 @@ class ColorPickerService {
       debugPrint('Failed to read pixel color: $e');
       return null;
     }
+  }
+
+  static String getHex(Color color) {
+    return '#${color.toARGB32().toRadixString(16).substring(2).toUpperCase()}';
+  }
+
+  static String getRgb(Color color) {
+    final r = (color.r * 255).round();
+    final g = (color.g * 255).round();
+    final b = (color.b * 255).round();
+
+    return 'RGB($r, $g, $b)';
+  }
+
+  static String getHsv(Color color) {
+    final hsv = HSVColor.fromColor(color);
+
+    return 'HSV(${hsv.hue.round()}°, ${(hsv.saturation * 100).round()}%, ${(hsv.value * 100).round()}%)';
+  }
+
+  static String getHsl(Color color) {
+    final hsl = HSLColor.fromColor(color);
+
+    return 'HSL(${hsl.hue.round()}°, ${(hsl.saturation * 100).round()}%, ${(hsl.lightness * 100).round()}%)';
   }
 }
