@@ -13,6 +13,8 @@ Built with Flutter and designed with Material 3.
 - Accurate pixel color detection
 - Copy HEX values
 - Copy RGB values
+- Copy HSV values
+- Copy HSL values
 - Automatic light and dark mode
 - Dynamic Color support on Android 12+
 - No ads
@@ -21,7 +23,7 @@ Built with Flutter and designed with Material 3.
 
 ## Screenshots
 
-<img width="300" alt="Screenshot_2026-07-15-17-40-08-797_com flakesoft tintra" src="https://github.com/user-attachments/assets/2374c4db-3b95-43d9-9368-45b923ae899e" /> <img width="300" alt="Screenshot_2026-07-15-17-40-23-074_com flakesoft tintra" src="https://github.com/user-attachments/assets/91a13409-6140-423d-b173-216faaa413ff" /> <img width="300" alt="Screenshot_2026-07-15-17-42-40-321_com flakesoft tintra" src="https://github.com/user-attachments/assets/6411a1a4-8576-4b19-9c3e-76581a3e9f58" /> <img width="300" alt="Screenshot_2026-07-15-17-43-15-434_com flakesoft tintra" src="https://github.com/user-attachments/assets/e53cc3aa-4bfb-4c29-8b98-4d825869754c" />
+<img width="300" alt="Screenshot_2026-07-25-17-41-50-407_com flakesoft tintra" src="https://github.com/user-attachments/assets/4c47f69a-b87c-46a6-bb67-f65bcb8b09fc" /> <img width="300" alt="Screenshot_2026-07-25-17-42-05-673_com flakesoft tintra" src="https://github.com/user-attachments/assets/bbb8ffed-4a83-4252-b296-17f35120b406" /> <img width="300" alt="Screenshot_2026-07-25-17-43-06-419_com flakesoft tintra" src="https://github.com/user-attachments/assets/2959f49a-16f8-46f3-9518-9eef39cf043e" /> <img width="300" alt="Screenshot_2026-07-25-17-43-08-088_com flakesoft tintra" src="https://github.com/user-attachments/assets/b7d8c7c1-c36f-49ab-93aa-5816fba2b787" /> <img width="300" alt="Screenshot_2026-07-25-17-43-09-840_com flakesoft tintra" src="https://github.com/user-attachments/assets/c0c8e906-2201-49c2-81d3-15f09718680b" /> <img width="300" alt="Screenshot_2026-07-25-17-43-12-342_com flakesoft tintra" src="https://github.com/user-attachments/assets/a5d11bb0-96fd-4905-8774-addec80e206d" />
 
 ## Download
 
@@ -44,12 +46,12 @@ See the LICENSE file for details.
 
 ## Roadmap
 
-Version 1.1
+Version 1.2
 
-- Adaptive launcher icon
-- F-Droid Fastlane metadata
-- UI improvements
-- Additional color formats
+- Windows port
+- Eyedropper
+- Color palette
+- Color history
 
 ## Contributing
 
