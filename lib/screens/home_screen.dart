@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/image_state.dart';
 import '../services/image_picker_service.dart';
 import '../services/image_processing_service.dart';
+import '../services/color_picker_service.dart';
 import '../widgets/color_info_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _onImageTap(TapUpDetails details) {
+  Future<void> _onImageTap(
+    TapUpDetails details,
+  ) async {
     if (imageState == null) return;
 
     final renderBox =
@@ -82,33 +85,29 @@ class _HomeScreenState extends State<HomeScreen> {
         details.localPosition;
 
     final x =
-        (localPosition.dx *
-                imageState!.image.width /
-                displayedSize.width)
-            .toInt();
+        (
+          localPosition.dx *
+          imageState!.image.width /
+          displayedSize.width
+        ).round();
 
     final y =
-        (localPosition.dy *
-                imageState!.image.height /
-                displayedSize.height)
-            .toInt();
+        (
+          localPosition.dy *
+          imageState!.image.height /
+          displayedSize.height
+        ).round();
 
-    if (x < 0 ||
-        y < 0 ||
-        x >= imageState!.image.width ||
-        y >= imageState!.image.height) {
+    final color =
+        await ColorPickerService.getPixelColor(
+      imagePath: imageState!.path,
+      x: x,
+      y: y,
+    );
+
+    if (!mounted || color == null) {
       return;
     }
-
-    final pixel =
-        imageState!.image.getPixel(x, y);
-
-    final color = Color.fromARGB(
-      pixel.a.toInt(),
-      pixel.r.toInt(),
-      pixel.g.toInt(),
-      pixel.b.toInt(),
-    );
 
     setState(() {
       imageState =
