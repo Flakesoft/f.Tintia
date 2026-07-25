@@ -3,24 +3,28 @@ import 'package:flutter/material.dart';
 import '../models/image_state.dart';
 import '../services/image_picker_service.dart';
 import '../services/image_processing_service.dart';
-import '../services/color_picker_service.dart';
 import '../widgets/color_info_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() =>
+      _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   ImageState? imageState;
+
   bool isLoading = false;
 
-  final GlobalKey _imageKey = GlobalKey();
+  final GlobalKey _imageKey =
+      GlobalKey();
 
-  final TransformationController _transformationController =
+  final TransformationController
+      _transformationController =
       TransformationController();
+
 
   @override
   void dispose() {
@@ -28,19 +32,24 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+
   Future<void> _selectImage() async {
-    final imageFile = await ImagePickerService.pickImage();
+    final imageFile =
+        await ImagePickerService.pickImage();
 
     if (imageFile == null) return;
+
 
     setState(() {
       isLoading = true;
     });
 
+
     final processedImage =
         await ImageProcessingService.processImage(
       imageFile.path,
     );
+
 
     if (processedImage == null) {
       if (!mounted) return;
@@ -52,62 +61,91 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
+
     if (!mounted) return;
+
 
     _transformationController.value =
         Matrix4.identity();
+
 
     setState(() {
       imageState = ImageState(
         path: imageFile.path,
         image: processedImage.image,
-        previewBytes: processedImage.previewBytes,
+        previewBytes:
+            processedImage.previewBytes,
       );
 
       isLoading = false;
     });
   }
 
-  Future<void> _onImageTap(
+
+  void _onImageTap(
     TapUpDetails details,
-  ) async {
-    if (imageState == null) return;
+  ) {
+    if (imageState == null) {
+      return;
+    }
+
 
     final renderBox =
-        _imageKey.currentContext?.findRenderObject()
+        _imageKey.currentContext
+            ?.findRenderObject()
             as RenderBox?;
 
-    if (renderBox == null) return;
 
-    final displayedSize = renderBox.size;
+    if (renderBox == null) {
+      return;
+    }
+
+
+    final displayedSize =
+        renderBox.size;
+
 
     final localPosition =
         details.localPosition;
 
+
     final x =
-        (
-          localPosition.dx *
-          imageState!.image.width /
-          displayedSize.width
-        ).round();
+        (localPosition.dx *
+                imageState!.image.width /
+                displayedSize.width)
+            .clamp(
+              0,
+              imageState!.image.width - 1,
+            )
+            .round();
+
 
     final y =
-        (
-          localPosition.dy *
-          imageState!.image.height /
-          displayedSize.height
-        ).round();
+        (localPosition.dy *
+                imageState!.image.height /
+                displayedSize.height)
+            .clamp(
+              0,
+              imageState!.image.height - 1,
+            )
+            .round();
+
+
+    final pixel =
+        imageState!.image.getPixel(
+          x,
+          y,
+        );
+
 
     final color =
-        await ColorPickerService.getPixelColor(
-      imagePath: imageState!.path,
-      x: x,
-      y: y,
-    );
+        Color.fromARGB(
+          pixel.a.toInt(),
+          pixel.r.toInt(),
+          pixel.g.toInt(),
+          pixel.b.toInt(),
+        );
 
-    if (!mounted || color == null) {
-      return;
-    }
 
     setState(() {
       imageState =
@@ -117,84 +155,122 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     final screenWidth =
         MediaQuery.of(context).size.width;
+
 
     final maxImageWidth =
         screenWidth > 700
             ? 600.0
             : screenWidth * 0.9;
 
+
     final maxImageHeight =
-        MediaQuery.of(context).size.height * 0.55;
+        MediaQuery.of(context).size.height *
+            0.55;
+
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('f.Tintra'),
-        centerTitle: true,
+        title:
+            const Text('f.Tintra'),
+
+        centerTitle:
+            true,
       ),
+
 
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding:
+              const EdgeInsets.all(24),
+
 
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
+            constraints:
+                const BoxConstraints(
               maxWidth: 700,
             ),
+
 
             child: Column(
               mainAxisAlignment:
                   MainAxisAlignment.center,
 
+
               children: [
                 AnimatedSwitcher(
                   duration:
-                      const Duration(milliseconds: 250),
+                      const Duration(
+                        milliseconds: 250,
+                      ),
+
 
                   child: isLoading
 
                       ? Column(
                           key:
-                              const ValueKey('loading'),
+                              const ValueKey(
+                            'loading',
+                          ),
 
                           children: [
                             Icon(
                               Icons.hourglass_top,
-                              size: 72,
+
+                              size:
+                                  72,
+
                               color:
-                                  Theme.of(context)
+                                  Theme.of(
+                                    context,
+                                  )
                                       .colorScheme
                                       .primary,
                             ),
 
-                            const SizedBox(height: 20),
+
+                            const SizedBox(
+                              height:
+                                  20,
+                            ),
+
 
                             Text(
                               'Loading image...',
+
                               style:
-                                  Theme.of(context)
+                                  Theme.of(
+                                    context,
+                                  )
                                       .textTheme
                                       .titleMedium,
                             ),
                           ],
                         )
 
+
                       : imageState != null
 
                           ? Column(
                               key:
-                                  const ValueKey('image'),
+                                  const ValueKey(
+                                'image',
+                              ),
+
 
                               children: [
                                 SizedBox(
                                   width:
                                       maxImageWidth,
 
+
                                   height:
                                       maxImageHeight,
+
 
                                   child:
                                       InteractiveViewer(
@@ -202,30 +278,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                     transformationController:
                                         _transformationController,
 
+
                                     minScale:
                                         0.8,
+
 
                                     maxScale:
                                         5.0,
 
+
                                     panEnabled:
                                         true,
 
+
                                     scaleEnabled:
                                         true,
+
 
                                     boundaryMargin:
                                         const EdgeInsets.all(
                                       50,
                                     ),
 
+
                                     clipBehavior:
                                         Clip.hardEdge,
 
+
                                     child:
                                         GestureDetector(
+
                                       onTapUp:
                                           _onImageTap,
+
 
                                       child:
                                           Image.memory(
@@ -242,34 +327,53 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
 
-                                const SizedBox(height: 8),
+
+                                const SizedBox(
+                                  height:
+                                      8,
+                                ),
+
 
                                 Text(
                                   'Pinch to zoom • Move with two fingers',
+
                                   style:
-                                      Theme.of(context)
+                                      Theme.of(
+                                        context,
+                                      )
                                           .textTheme
                                           .bodySmall,
                                 ),
                               ],
                             )
 
+
                           : Icon(
                               Icons.colorize,
 
                               key:
-                                  const ValueKey('empty'),
+                                  const ValueKey(
+                                'empty',
+                              ),
 
-                              size: 96,
+                              size:
+                                  96,
 
                               color:
-                                  Theme.of(context)
+                                  Theme.of(
+                                    context,
+                                  )
                                       .colorScheme
                                       .primary,
                             ),
                 ),
 
-                const SizedBox(height: 24),
+
+                const SizedBox(
+                  height:
+                      24,
+                ),
+
 
                 if (imageState?.selectedColor != null)
 
@@ -277,6 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color:
                         imageState!.selectedColor!,
                   )
+
 
                 else if (imageState != null)
 
@@ -289,7 +394,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             .bodyMedium,
                   ),
 
-                const SizedBox(height: 32),
+
+                const SizedBox(
+                  height:
+                      32,
+                ),
+
 
                 FilledButton.icon(
                   onPressed:
@@ -297,15 +407,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? null
                           : _selectImage,
 
+
                   icon:
-                      const Icon(Icons.image),
+                      const Icon(
+                    Icons.image,
+                  ),
+
 
                   label:
                       Text(
-                        imageState == null
-                            ? 'Select image'
-                            : 'Choose another image',
-                      ),
+                    imageState == null
+                        ? 'Select image'
+                        : 'Choose another image',
+                  ),
                 ),
               ],
             ),
