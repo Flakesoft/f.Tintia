@@ -5,8 +5,12 @@ import 'package:image/image.dart' as img;
 
 class ImageState {
   final String path;
+
+  // Optimized image used for picking colors
   final img.Image image;
+
   final Uint8List previewBytes;
+
   final Color? selectedColor;
 
   const ImageState({
