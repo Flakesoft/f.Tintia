@@ -8,16 +8,16 @@ Built with Flutter and designed with Material 3.
 
 ## Features
 
-- 🎨 Pick any color from an image
-- 📷 Open images from your device
-- 🔍 Accurate pixel color detection
-- #️⃣ Copy HEX values
-- 🌈 Copy RGB values
-- 🌙 Automatic light and dark mode
-- 🎨 Dynamic Color support on Android 12+
-- 🚫 No ads
-- 🔒 No tracking
-- 🆓 100% Free and Open Source
+- Pick any color from an image
+- Open images from your device
+- Accurate pixel color detection
+- Copy HEX values
+- Copy RGB values
+- Automatic light and dark mode
+- Dynamic Color support on Android 12+
+- No ads
+- No tracking
+- 100% Free and Open Source
 
 ## Screenshots
 
