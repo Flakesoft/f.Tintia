@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'dart:isolate';
 import 'dart:typed_data';
+import 'dart:isolate';
 
 import 'package:image/image.dart' as img;
 
@@ -15,25 +15,42 @@ class ProcessedImage {
 }
 
 class ImageProcessingService {
-  static Future<ProcessedImage?> processImage(String path) async {
+  static Future<ProcessedImage?> processImage(
+    String path,
+  ) async {
     return Isolate.run(() {
-      final bytes = File(path).readAsBytesSync();
 
-      final decoded = img.decodeImage(bytes);
+      final bytes =
+          File(path).readAsBytesSync();
 
-      if (decoded == null) return null;
+      final decoded =
+          img.decodeImage(bytes);
 
-      final resized = img.copyResize(
-        decoded,
-        width: 800,
-      );
+      if (decoded == null) {
+        return null;
+      }
 
-      final previewBytes = Uint8List.fromList(
-        img.encodePng(resized),
-      );
+
+      // Limit image size for fast color picking
+      final processed =
+          img.copyResize(
+            decoded,
+            width: decoded.width > 1200
+                ? 1200
+                : decoded.width,
+          );
+
+
+      final previewBytes =
+          Uint8List.fromList(
+            img.encodePng(
+              processed,
+            ),
+          );
+
 
       return ProcessedImage(
-        image: resized,
+        image: processed,
         previewBytes: previewBytes,
       );
     });
