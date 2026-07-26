@@ -4,6 +4,7 @@ import '../models/image_state.dart';
 import '../services/image_picker_service.dart';
 import '../services/image_processing_service.dart';
 import '../widgets/color_info_card.dart';
+import '../widgets/image_viewer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -158,21 +159,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth =
-        MediaQuery.of(context).size.width;
-
-
-    final maxImageWidth =
-        screenWidth > 700
-            ? 600.0
-            : screenWidth * 0.9;
-
-
-    final maxImageHeight =
-        MediaQuery.of(context).size.height *
-            0.55;
-
-
     return Scaffold(
       appBar: AppBar(
         title:
@@ -202,6 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
               children: [
+
                 AnimatedSwitcher(
                   duration:
                       const Duration(
@@ -225,9 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   72,
 
                               color:
-                                  Theme.of(
-                                    context,
-                                  )
+                                  Theme.of(context)
                                       .colorScheme
                                       .primary,
                             ),
@@ -243,9 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Loading image...',
 
                               style:
-                                  Theme.of(
-                                    context,
-                                  )
+                                  Theme.of(context)
                                       .textTheme
                                       .titleMedium,
                             ),
@@ -255,96 +238,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       : imageState != null
 
-                          ? Column(
+                          ? ImageViewer(
                               key:
                                   const ValueKey(
                                 'image',
                               ),
 
+                              imageState:
+                                  imageState!,
 
-                              children: [
-                                SizedBox(
-                                  width:
-                                      maxImageWidth,
+                              imageKey:
+                                  _imageKey,
 
+                              transformationController:
+                                  _transformationController,
 
-                                  height:
-                                      maxImageHeight,
-
-
-                                  child:
-                                      InteractiveViewer(
-
-                                    transformationController:
-                                        _transformationController,
-
-
-                                    minScale:
-                                        0.8,
-
-
-                                    maxScale:
-                                        5.0,
-
-
-                                    panEnabled:
-                                        true,
-
-
-                                    scaleEnabled:
-                                        true,
-
-
-                                    boundaryMargin:
-                                        const EdgeInsets.all(
-                                      50,
-                                    ),
-
-
-                                    clipBehavior:
-                                        Clip.hardEdge,
-
-
-                                    child:
-                                        GestureDetector(
-
-                                      onTapUp:
-                                          _onImageTap,
-
-
-                                      child:
-                                          Image.memory(
-                                        key:
-                                            _imageKey,
-
-                                        imageState!
-                                            .previewBytes,
-
-                                        fit:
-                                            BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-
-                                const SizedBox(
-                                  height:
-                                      8,
-                                ),
-
-
-                                Text(
-                                  'Pinch to zoom • Move with two fingers',
-
-                                  style:
-                                      Theme.of(
-                                        context,
-                                      )
-                                          .textTheme
-                                          .bodySmall,
-                                ),
-                              ],
+                              onTap:
+                                  _onImageTap,
                             )
 
 
@@ -360,9 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   96,
 
                               color:
-                                  Theme.of(
-                                    context,
-                                  )
+                                  Theme.of(context)
                                       .colorScheme
                                       .primary,
                             ),
