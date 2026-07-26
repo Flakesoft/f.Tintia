@@ -4,7 +4,9 @@ import '../models/image_state.dart';
 import '../services/image_picker_service.dart';
 import '../services/image_processing_service.dart';
 import '../widgets/color_info_card.dart';
+import '../widgets/empty_state.dart';
 import '../widgets/image_viewer.dart';
+import '../widgets/loading_state.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,13 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
       _transformationController =
       TransformationController();
 
-
   @override
   void dispose() {
     _transformationController.dispose();
     super.dispose();
   }
-
 
   Future<void> _selectImage() async {
     final imageFile =
@@ -40,17 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (imageFile == null) return;
 
-
     setState(() {
       isLoading = true;
     });
-
 
     final processedImage =
         await ImageProcessingService.processImage(
       imageFile.path,
     );
-
 
     if (processedImage == null) {
       if (!mounted) return;
@@ -62,13 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-
     if (!mounted) return;
-
 
     _transformationController.value =
         Matrix4.identity();
-
 
     setState(() {
       imageState = ImageState(
@@ -82,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
   void _onImageTap(
     TapUpDetails details,
   ) {
@@ -90,25 +83,20 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-
     final renderBox =
         _imageKey.currentContext
             ?.findRenderObject()
             as RenderBox?;
 
-
     if (renderBox == null) {
       return;
     }
 
-
     final displayedSize =
         renderBox.size;
 
-
     final localPosition =
         details.localPosition;
-
 
     final x =
         (localPosition.dx *
@@ -120,7 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
             )
             .round();
 
-
     final y =
         (localPosition.dy *
                 imageState!.image.height /
@@ -131,13 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
             )
             .round();
 
-
     final pixel =
         imageState!.image.getPixel(
           x,
           y,
         );
-
 
     final color =
         Color.fromARGB(
@@ -147,7 +132,6 @@ class _HomeScreenState extends State<HomeScreen> {
           pixel.b.toInt(),
         );
 
-
     setState(() {
       imageState =
           imageState!.copyWith(
@@ -156,24 +140,19 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title:
             const Text('f.Tintra'),
-
-        centerTitle:
-            true,
+        centerTitle: true,
       ),
-
 
       body: Center(
         child: SingleChildScrollView(
           padding:
               const EdgeInsets.all(24),
-
 
           child: ConstrainedBox(
             constraints:
@@ -181,60 +160,20 @@ class _HomeScreenState extends State<HomeScreen> {
               maxWidth: 700,
             ),
 
-
             child: Column(
               mainAxisAlignment:
                   MainAxisAlignment.center,
 
-
               children: [
-
                 AnimatedSwitcher(
                   duration:
                       const Duration(
                         milliseconds: 250,
                       ),
 
-
                   child: isLoading
 
-                      ? Column(
-                          key:
-                              const ValueKey(
-                            'loading',
-                          ),
-
-                          children: [
-                            Icon(
-                              Icons.hourglass_top,
-
-                              size:
-                                  72,
-
-                              color:
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .primary,
-                            ),
-
-
-                            const SizedBox(
-                              height:
-                                  20,
-                            ),
-
-
-                            Text(
-                              'Loading image...',
-
-                              style:
-                                  Theme.of(context)
-                                      .textTheme
-                                      .titleMedium,
-                            ),
-                          ],
-                        )
-
+                      ? const LoadingState()
 
                       : imageState != null
 
@@ -257,31 +196,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   _onImageTap,
                             )
 
-
-                          : Icon(
-                              Icons.colorize,
-
-                              key:
-                                  const ValueKey(
-                                'empty',
-                              ),
-
-                              size:
-                                  96,
-
-                              color:
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .primary,
-                            ),
+                          : const EmptyState(),
                 ),
-
 
                 const SizedBox(
-                  height:
-                      24,
+                  height: 24,
                 ),
-
 
                 if (imageState?.selectedColor != null)
 
@@ -289,7 +209,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     color:
                         imageState!.selectedColor!,
                   )
-
 
                 else if (imageState != null)
 
@@ -302,12 +221,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             .bodyMedium,
                   ),
 
-
                 const SizedBox(
-                  height:
-                      32,
+                  height: 32,
                 ),
-
 
                 FilledButton.icon(
                   onPressed:
@@ -315,15 +231,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? null
                           : _selectImage,
 
-
                   icon:
                       const Icon(
                     Icons.image,
                   ),
 
-
-                  label:
-                      Text(
+                  label: Text(
                     imageState == null
                         ? 'Select image'
                         : 'Choose another image',
