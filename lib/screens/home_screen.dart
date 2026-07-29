@@ -149,104 +149,101 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
 
-      body: Center(
-        child: SingleChildScrollView(
-          padding:
-              const EdgeInsets.all(24),
+      body: AdaptiveLayout(
+  mobile: Center(
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(24),
 
-          child: ConstrainedBox(
-            constraints:
-                const BoxConstraints(
-              maxWidth: 700,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxWidth: 700,
+        ),
+
+        child: Column(
+          mainAxisAlignment:
+              MainAxisAlignment.center,
+
+          children: [
+            AnimatedSwitcher(
+              duration:
+                  const Duration(
+                    milliseconds: 250,
+                  ),
+
+              child: isLoading
+
+                  ? const LoadingState()
+
+                  : imageState != null
+
+                      ? ImageViewer(
+                          key:
+                              const ValueKey(
+                            'image',
+                          ),
+
+                          imageState:
+                              imageState!,
+
+                          imageKey:
+                              _imageKey,
+
+                          transformationController:
+                              _transformationController,
+
+                          onTap:
+                              _onImageTap,
+                        )
+
+                      : const EmptyState(),
             ),
 
-            child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.center,
-
-              children: [
-                AnimatedSwitcher(
-                  duration:
-                      const Duration(
-                        milliseconds: 250,
-                      ),
-
-                  child: isLoading
-
-                      ? const LoadingState()
-
-                      : imageState != null
-
-                          ? ImageViewer(
-                              key:
-                                  const ValueKey(
-                                'image',
-                              ),
-
-                              imageState:
-                                  imageState!,
-
-                              imageKey:
-                                  _imageKey,
-
-                              transformationController:
-                                  _transformationController,
-
-                              onTap:
-                                  _onImageTap,
-                            )
-
-                          : const EmptyState(),
-                ),
-
-                const SizedBox(
-                  height: 24,
-                ),
-
-                if (imageState?.selectedColor != null)
-
-                  ColorInfoCard(
-                    color:
-                        imageState!.selectedColor!,
-                  )
-
-                else if (imageState != null)
-
-                  Text(
-                    'Tap the image to pick a color',
-
-                    style:
-                        Theme.of(context)
-                            .textTheme
-                            .bodyMedium,
-                  ),
-
-                const SizedBox(
-                  height: 32,
-                ),
-
-                FilledButton.icon(
-                  onPressed:
-                      isLoading
-                          ? null
-                          : _selectImage,
-
-                  icon:
-                      const Icon(
-                    Icons.image,
-                  ),
-
-                  label: Text(
-                    imageState == null
-                        ? 'Select image'
-                        : 'Choose another image',
-                  ),
-                ),
-              ],
+            const SizedBox(
+              height: 24,
             ),
-          ),
+
+            if (imageState?.selectedColor != null)
+
+              ColorInfoCard(
+                color:
+                    imageState!.selectedColor!,
+              )
+
+            else if (imageState != null)
+
+              Text(
+                'Tap the image to pick a color',
+
+                style:
+                    Theme.of(context)
+                        .textTheme
+                        .bodyMedium,
+              ),
+
+            const SizedBox(
+              height: 32,
+            ),
+
+            FilledButton.icon(
+              onPressed:
+                  isLoading
+                      ? null
+                      : _selectImage,
+
+              icon:
+                  const Icon(
+                Icons.image,
+              ),
+
+              label: Text(
+                imageState == null
+                    ? 'Select image'
+                    : 'Choose another image',
+              ),
+            ),
+          ],
         ),
       ),
-    );
-  }
-}
+    ),
+  ),
+),
