@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../layout/adaptive_layout.dart';
 import '../models/image_state.dart';
 import '../services/image_picker_service.dart';
 import '../services/image_processing_service.dart';
