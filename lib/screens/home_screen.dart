@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../layout/adaptive_layout.dart';
+import '../layout/mobile_home_layout.dart';
+import '../layout/tablet_home_layout.dart';
+import '../layout/desktop_home_layout.dart';
 import '../models/image_state.dart';
 import '../services/image_picker_service.dart';
 import '../services/image_processing_service.dart';
-import '../layout/mobile_home_layout.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -144,11 +146,31 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title:
             const Text('f.Tintra'),
-        centerTitle:
-            true,
+        centerTitle: true,
       ),
+
       body: AdaptiveLayout(
         mobile: MobileHomeLayout(
+          imageState: imageState,
+          isLoading: isLoading,
+          imageKey: _imageKey,
+          transformationController:
+              _transformationController,
+          onImageTap: _onImageTap,
+          onSelectImage: _selectImage,
+        ),
+
+        tablet: TabletHomeLayout(
+          imageState: imageState,
+          isLoading: isLoading,
+          imageKey: _imageKey,
+          transformationController:
+              _transformationController,
+          onImageTap: _onImageTap,
+          onSelectImage: _selectImage,
+        ),
+
+        desktop: DesktopHomeLayout(
           imageState: imageState,
           isLoading: isLoading,
           imageKey: _imageKey,
