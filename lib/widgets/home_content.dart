@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models/image_state.dart';
-import 'color_info_card.dart';
-import 'empty_state.dart';
-import 'image_viewer.dart';
-import 'loading_state.dart';
+import 'color_panel.dart';
+import 'image_section.dart';
 
 class HomeContent extends StatelessWidget {
   final bool isLoading;
@@ -48,84 +46,24 @@ class HomeContent extends StatelessWidget {
                 MainAxisAlignment.center,
 
             children: [
-              AnimatedSwitcher(
-                duration:
-                    const Duration(
-                      milliseconds: 250,
-                    ),
-
-                child: isLoading
-
-                    ? const LoadingState()
-
-                    : imageState != null
-
-                        ? ImageViewer(
-                            key:
-                                const ValueKey(
-                              'image',
-                            ),
-
-                            imageState:
-                                imageState!,
-
-                            imageKey:
-                                imageKey,
-
-                            transformationController:
-                                transformationController,
-
-                            onTap:
-                                onImageTap,
-                          )
-
-                        : const EmptyState(),
+              ImageSection(
+                isLoading: isLoading,
+                imageState: imageState,
+                imageKey: imageKey,
+                transformationController:
+                    transformationController,
+                onImageTap: onImageTap,
               ),
 
               const SizedBox(
                 height: 24,
               ),
 
-              if (imageState?.selectedColor !=
-                  null)
-
-                ColorInfoCard(
-                  color:
-                      imageState!
-                          .selectedColor!,
-                )
-
-              else if (imageState != null)
-
-                Text(
-                  'Tap the image to pick a color',
-
-                  style:
-                      Theme.of(context)
-                          .textTheme
-                          .bodyMedium,
-                ),
-
-              const SizedBox(
-                height: 32,
-              ),
-
-              FilledButton.icon(
-                onPressed:
-                    isLoading
-                        ? null
-                        : onSelectImage,
-
-                icon:
-                    const Icon(
-                  Icons.image,
-                ),
-
-                label: Text(
-                  imageState == null
-                      ? 'Select image'
-                      : 'Choose another image',
-                ),
+              ColorPanel(
+                imageState: imageState,
+                isLoading: isLoading,
+                onSelectImage:
+                    onSelectImage,
               ),
             ],
           ),
