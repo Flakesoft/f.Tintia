@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class HamburgerMenu extends StatelessWidget {
+class AppSidebar extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int>? onDestinationSelected;
 
-  const HamburgerMenu({
+  const AppSidebar({
     super.key,
     this.selectedIndex = 0,
     this.onDestinationSelected,
