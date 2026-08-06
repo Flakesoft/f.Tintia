@@ -48,11 +48,18 @@ class HomeContent extends StatelessWidget {
             children: [
               ImageSection(
                 isLoading: isLoading,
+
                 imageState: imageState,
+
                 imageKey: imageKey,
+
                 transformationController:
                     transformationController,
+
                 onImageTap: onImageTap,
+
+                onSelectImage:
+                    onSelectImage,
               ),
 
               const SizedBox(
@@ -61,9 +68,8 @@ class HomeContent extends StatelessWidget {
 
               ColorPanel(
                 imageState: imageState,
+
                 isLoading: isLoading,
-                onSelectImage:
-                    onSelectImage,
               ),
             ],
           ),
