@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/image_state.dart';
-import 'color_panel.dart';
+import 'color_info_card.dart';
 import 'image_section.dart';
 
 class HomeContent extends StatelessWidget {
