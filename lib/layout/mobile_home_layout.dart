@@ -5,10 +5,16 @@ import '../widgets/home_content.dart';
 
 class MobileHomeLayout extends StatelessWidget {
   final ImageState? imageState;
+
   final bool isLoading;
+
   final GlobalKey imageKey;
-  final TransformationController transformationController;
+
+  final TransformationController
+      transformationController;
+
   final GestureTapUpCallback onImageTap;
+
   final VoidCallback onSelectImage;
 
   const MobileHomeLayout({
@@ -23,14 +29,34 @@ class MobileHomeLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeContent(
-      isLoading: isLoading,
-      imageState: imageState,
-      imageKey: imageKey,
-      transformationController:
-          transformationController,
-      onImageTap: onImageTap,
-      onSelectImage: onSelectImage,
+    return Center(
+      child: SingleChildScrollView(
+        padding:
+            const EdgeInsets.all(24),
+
+        child: ConstrainedBox(
+          constraints:
+              const BoxConstraints(
+            maxWidth: 700,
+          ),
+
+          child: HomeContent(
+            isLoading: isLoading,
+
+            imageState: imageState,
+
+            imageKey: imageKey,
+
+            transformationController:
+                transformationController,
+
+            onImageTap: onImageTap,
+
+            onSelectImage:
+                onSelectImage,
+          ),
+        ),
+      ),
     );
   }
 }
