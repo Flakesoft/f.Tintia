@@ -17,6 +17,8 @@ class ImageSection extends StatelessWidget {
 
   final GestureTapUpCallback onImageTap;
 
+  final VoidCallback onSelectImage;
+
   const ImageSection({
     super.key,
     required this.isLoading,
@@ -24,40 +26,66 @@ class ImageSection extends StatelessWidget {
     required this.imageKey,
     required this.transformationController,
     required this.onImageTap,
+    required this.onSelectImage,
   });
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(
-        milliseconds: 250,
-      ),
+    return Column(
+      children: [
+        AnimatedSwitcher(
+          duration: const Duration(
+            milliseconds: 250,
+          ),
 
-      child: isLoading
+          child: isLoading
 
-          ? const LoadingState()
+              ? const LoadingState()
 
-          : imageState != null
+              : imageState != null
 
-              ? ImageViewer(
-                  key: const ValueKey(
-                    'image',
-                  ),
+                  ? ImageViewer(
+                      key: const ValueKey(
+                        'image',
+                      ),
 
-                  imageState:
-                      imageState!,
+                      imageState:
+                          imageState!,
 
-                  imageKey:
-                      imageKey,
+                      imageKey:
+                          imageKey,
 
-                  transformationController:
-                      transformationController,
+                      transformationController:
+                          transformationController,
 
-                  onTap:
-                      onImageTap,
-                )
+                      onTap:
+                          onImageTap,
+                    )
 
-              : const EmptyState(),
+                  : const EmptyState(),
+        ),
+
+        const SizedBox(
+          height: 32,
+        ),
+
+        FilledButton.icon(
+          onPressed:
+              isLoading
+                  ? null
+                  : onSelectImage,
+
+          icon: const Icon(
+            Icons.image,
+          ),
+
+          label: Text(
+            imageState == null
+                ? 'Select image'
+                : 'Choose another image',
+          ),
+        ),
+      ],
     );
   }
 }
