@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 
 import '../models/image_state.dart';
+import '../widgets/app_sidebar.dart';
+import '../widgets/desktop_color_panel.dart';
 import '../widgets/home_content.dart';
 
 class DesktopHomeLayout extends StatelessWidget {
   final ImageState? imageState;
+
   final bool isLoading;
+
   final GlobalKey imageKey;
-  final TransformationController transformationController;
+
+  final TransformationController
+      transformationController;
+
   final GestureTapUpCallback onImageTap;
+
   final VoidCallback onSelectImage;
 
   const DesktopHomeLayout({
@@ -25,25 +33,9 @@ class DesktopHomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
+        const SizedBox(
           width: 280,
-          decoration: BoxDecoration(
-            color: Theme.of(context)
-                .colorScheme
-                .surfaceContainerLow,
-            border: Border(
-              right: BorderSide(
-                color: Theme.of(context)
-                    .colorScheme
-                    .outlineVariant,
-              ),
-            ),
-          ),
-          child: const Center(
-            child: Text(
-              'Desktop Sidebar Placeholder',
-            ),
-          ),
+          child: AppSidebar(),
         ),
 
         Expanded(
@@ -58,24 +50,10 @@ class DesktopHomeLayout extends StatelessWidget {
           ),
         ),
 
-        Container(
+        SizedBox(
           width: 320,
-          decoration: BoxDecoration(
-            color: Theme.of(context)
-                .colorScheme
-                .surfaceContainerLowest,
-            border: Border(
-              left: BorderSide(
-                color: Theme.of(context)
-                    .colorScheme
-                    .outlineVariant,
-              ),
-            ),
-          ),
-          child: const Center(
-            child: Text(
-              'Color Panel Placeholder',
-            ),
+          child: DesktopColorPanel(
+            imageState: imageState,
           ),
         ),
       ],
