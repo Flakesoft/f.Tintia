@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../models/image_state.dart';
+import '../widgets/app_sidebar.dart';
 import '../widgets/home_content.dart';
 
 class TabletHomeLayout extends StatelessWidget {
   final ImageState? imageState;
+
   final bool isLoading;
+
   final GlobalKey imageKey;
-  final TransformationController transformationController;
+
+  final TransformationController
+      transformationController;
+
   final GestureTapUpCallback onImageTap;
+
   final VoidCallback onSelectImage;
 
   const TabletHomeLayout({
@@ -25,36 +32,26 @@ class TabletHomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
+        const SizedBox(
           width: 260,
-          decoration: BoxDecoration(
-            color: Theme.of(context)
-                .colorScheme
-                .surfaceContainerLow,
-            border: Border(
-              right: BorderSide(
-                color: Theme.of(context)
-                    .colorScheme
-                    .outlineVariant,
-              ),
-            ),
-          ),
-          child: const Center(
-            child: Text(
-              'Sidebar Placeholder',
-            ),
-          ),
+          child: AppSidebar(),
         ),
 
         Expanded(
           child: HomeContent(
             isLoading: isLoading,
+
             imageState: imageState,
+
             imageKey: imageKey,
+
             transformationController:
                 transformationController,
+
             onImageTap: onImageTap,
-            onSelectImage: onSelectImage,
+
+            onSelectImage:
+                onSelectImage,
           ),
         ),
       ],
