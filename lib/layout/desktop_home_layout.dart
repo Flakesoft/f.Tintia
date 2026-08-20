@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/image_state.dart';
 import '../widgets/app_sidebar.dart';
 import '../widgets/desktop_color_panel.dart';
-import '../widgets/home_content.dart';
+import '../widgets/image_section.dart';
 
 class DesktopHomeLayout extends StatelessWidget {
   final ImageState? imageState;
@@ -39,14 +39,28 @@ class DesktopHomeLayout extends StatelessWidget {
         ),
 
         Expanded(
-          child: HomeContent(
-            isLoading: isLoading,
-            imageState: imageState,
-            imageKey: imageKey,
-            transformationController:
-                transformationController,
-            onImageTap: onImageTap,
-            onSelectImage: onSelectImage,
+          child: Center(
+            child: SingleChildScrollView(
+              padding:
+                  const EdgeInsets.all(24),
+
+              child: ImageSection(
+                isLoading: isLoading,
+
+                imageState: imageState,
+
+                imageKey: imageKey,
+
+                transformationController:
+                    transformationController,
+
+                onImageTap:
+                    onImageTap,
+
+                onSelectImage:
+                    onSelectImage,
+              ),
+            ),
           ),
         ),
 
