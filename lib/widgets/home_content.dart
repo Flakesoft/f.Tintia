@@ -30,51 +30,51 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        padding:
-            const EdgeInsets.all(24),
+    return Column(
+      mainAxisAlignment:
+          MainAxisAlignment.center,
 
-        child: ConstrainedBox(
-          constraints:
-              const BoxConstraints(
-            maxWidth: 700,
-          ),
+      children: [
+        ImageSection(
+          isLoading: isLoading,
 
-          child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
+          imageState: imageState,
 
-            children: [
-              ImageSection(
-                isLoading: isLoading,
+          imageKey: imageKey,
 
-                imageState: imageState,
+          transformationController:
+              transformationController,
 
-                imageKey: imageKey,
+          onImageTap: onImageTap,
 
-                transformationController:
-                    transformationController,
-
-                onImageTap: onImageTap,
-
-                onSelectImage:
-                    onSelectImage,
-              ),
-
-              const SizedBox(
-                height: 24,
-              ),
-
-              ColorPanel(
-                imageState: imageState,
-
-                isLoading: isLoading,
-              ),
-            ],
-          ),
+          onSelectImage:
+              onSelectImage,
         ),
-      ),
+
+        const SizedBox(
+          height: 24,
+        ),
+
+        if (imageState?.selectedColor !=
+            null)
+
+          ColorInfoCard(
+            color:
+                imageState!
+                    .selectedColor!,
+          )
+
+        else if (imageState != null)
+
+          Text(
+            'Tap the image to pick a color',
+
+            style:
+                Theme.of(context)
+                    .textTheme
+                    .bodyMedium,
+          ),
+      ],
     );
   }
 }
