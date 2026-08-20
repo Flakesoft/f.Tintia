@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../layout/adaptive_layout.dart';
+import '../layout/desktop_home_layout.dart';
+import '../layout/layout_breakpoints.dart';
 import '../layout/mobile_home_layout.dart';
 import '../layout/tablet_home_layout.dart';
-import '../layout/desktop_home_layout.dart';
 import '../models/image_state.dart';
 import '../services/image_picker_service.dart';
 import '../services/image_processing_service.dart';
+import '../widgets/app_sidebar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +18,8 @@ class HomeScreen extends StatefulWidget {
       _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState
+    extends State<HomeScreen> {
   ImageState? imageState;
 
   bool isLoading = false;
@@ -38,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final imageFile =
         await ImagePickerService.pickImage();
 
-    if (imageFile == null) return;
+    if (imageFile == null) {
+      return;
+    }
 
     setState(() {
       isLoading = true;
@@ -50,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     if (processedImage == null) {
-      if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
 
       setState(() {
         isLoading = false;
@@ -59,7 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
 
     _transformationController.value =
         Matrix4.identity();
@@ -120,17 +129,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final pixel =
         imageState!.image.getPixel(
-          x,
-          y,
-        );
+      x,
+      y,
+    );
 
     final color =
         Color.fromARGB(
-          pixel.a.toInt(),
-          pixel.r.toInt(),
-          pixel.g.toInt(),
-          pixel.b.toInt(),
-        );
+      pixel.a.toInt(),
+      pixel.r.toInt(),
+      pixel.g.toInt(),
+      pixel.b.toInt(),
+    );
 
     setState(() {
       imageState =
@@ -142,44 +151,117 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title:
-            const Text('f.Tintra'),
-        centerTitle: true,
-      ),
+    return LayoutBuilder(
+      builder: (
+        context,
+        constraints,
+      ) {
+        final width =
+            constraints.maxWidth;
 
-      body: AdaptiveLayout(
-        mobile: MobileHomeLayout(
-          imageState: imageState,
-          isLoading: isLoading,
-          imageKey: _imageKey,
-          transformationController:
-              _transformationController,
-          onImageTap: _onImageTap,
-          onSelectImage: _selectImage,
-        ),
+        final isMobile =
+            !LayoutBreakpoints
+                .isTablet(width) &&
+            !LayoutBreakpoints
+                .isDesktop(width);
 
-        tablet: TabletHomeLayout(
-          imageState: imageState,
-          isLoading: isLoading,
-          imageKey: _imageKey,
-          transformationController:
-              _transformationController,
-          onImageTap: _onImageTap,
-          onSelectImage: _selectImage,
-        ),
+        return Scaffold(
+          appBar: AppBar(
+            title:
+                const Text('f.Tintra'),
+            centerTitle: true,
 
-        desktop: DesktopHomeLayout(
-          imageState: imageState,
-          isLoading: isLoading,
-          imageKey: _imageKey,
-          transformationController:
-              _transformationController,
-          onImageTap: _onImageTap,
-          onSelectImage: _selectImage,
-        ),
-      ),
+            leading:
+                isMobile
+                    ? Builder(
+                        builder:
+                            (context) {
+                          return IconButton(
+                            icon:
+                                const Icon(
+                              Icons.menu,
+                            ),
+                            tooltip:
+                                'Open menu',
+                            onPressed: () {
+                              Scaffold.of(
+                                context,
+                              ).openDrawer();
+                            },
+                          );
+                        },
+                      )
+                    : null,
+          ),
+
+          drawer:
+              isMobile
+                  ? const AppSidebar()
+                  : null,
+
+          body: AdaptiveLayout(
+            mobile: MobileHomeLayout(
+              imageState:
+                  imageState,
+
+              isLoading:
+                  isLoading,
+
+              imageKey:
+                  _imageKey,
+
+              transformationController:
+                  _transformationController,
+
+              onImageTap:
+                  _onImageTap,
+
+              onSelectImage:
+                  _selectImage,
+            ),
+
+            tablet: TabletHomeLayout(
+              imageState:
+                  imageState,
+
+              isLoading:
+                  isLoading,
+
+              imageKey:
+                  _imageKey,
+
+              transformationController:
+                  _transformationController,
+
+              onImageTap:
+                  _onImageTap,
+
+              onSelectImage:
+                  _selectImage,
+            ),
+
+            desktop: DesktopHomeLayout(
+              imageState:
+                  imageState,
+
+              isLoading:
+                  isLoading,
+
+              imageKey:
+                  _imageKey,
+
+              transformationController:
+                  _transformationController,
+
+              onImageTap:
+                  _onImageTap,
+
+              onSelectImage:
+                  _selectImage,
+            ),
+          ),
+        );
+      },
     );
   }
 }
