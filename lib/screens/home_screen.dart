@@ -168,7 +168,7 @@ class _HomeScreenState
         return Scaffold(
           appBar: AppBar(
             title:
-                const Text('f.Tintra'),
+                const Text('f.Tintia'),
             centerTitle: true,
 
             leading:

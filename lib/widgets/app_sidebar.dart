@@ -25,7 +25,7 @@ class AppSidebar extends StatelessWidget {
             12,
           ),
           child: Text(
-            'f.Tintra',
+            'f.Tintia',
           ),
         ),
 
