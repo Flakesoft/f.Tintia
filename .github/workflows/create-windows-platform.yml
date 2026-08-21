@@ -1,0 +1,52 @@
+name: Create Windows Platform
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create-windows-platform:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Enable Windows
+        run: flutter config --enable-windows-desktop
+
+      - name: Generate Windows platform
+        run: flutter create --platforms=windows .
+
+      - name: Check generated files
+        run: |
+          if (!(Test-Path "windows")) {
+            Write-Error "Windows platform was not generated."
+            exit 1
+          }
+
+          Write-Host "Windows platform generated successfully."
+
+      - name: Commit Windows platform
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add windows
+
+          if (git diff --cached --quiet) {
+            Write-Host "No Windows platform changes to commit."
+            exit 0
+          }
+
+          git commit -m "chore: add Windows platform"
+          git push
