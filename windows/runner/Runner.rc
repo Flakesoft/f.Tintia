@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.flakesoft" "\0"
-            VALUE "FileDescription", "f_tintra" "\0"
+            VALUE "CompanyName", "Flakesoft" "\0"
+            VALUE "FileDescription", "f.Tintia" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "f_tintra" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.flakesoft. All rights reserved." "\0"
+            VALUE "LegalCopyright", "This program and all of its components are licensed under GNU General Public License v3.0. More information can be found inside the LICENSE file." "\0"
             VALUE "OriginalFilename", "f_tintra.exe" "\0"
-            VALUE "ProductName", "f_tintra" "\0"
+            VALUE "ProductName", "f.Tintia" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
