@@ -1,4 +1,4 @@
-f.Tintra is a simple, fast, and open-source color picker for Android.
+f.Tintia is a simple, fast, and open-source color picker for Android.
 
 Select any image from your device, tap anywhere on it, and instantly get the exact color of that pixel. Copy HEX and RGB values with a single tap and use them in your designs, themes, websites, or applications.
 
@@ -15,7 +15,7 @@ Features
 
 Privacy
 
-f.Tintra works entirely on your device.
+f.Tintia works entirely on your device.
 
 • No ads
 • No tracking
