@@ -52,7 +52,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: f-Tintra-release-apk
+          name: f-Tintia-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
       - name: Remove keystore
@@ -88,8 +88,44 @@ jobs:
       - name: Build Windows
         run: flutter build windows --release
 
+      - name: Prepare installer payload
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path installer/payload | Out-Null
+
+          Copy-Item `
+            -Path "build/windows/x64/runner/Release/*" `
+            -Destination "installer/payload/" `
+            -Recurse `
+            -Force
+
+      - name: Configure installer
+        shell: pwsh
+        run: |
+          cmake -S installer -B installer/build
+
+      - name: Build installer
+        shell: pwsh
+        run: |
+          cmake --build installer/build --config Release
+
+      - name: Copy installer payload
+        shell: pwsh
+        run: |
+          Copy-Item `
+            -Path "installer/payload" `
+            -Destination "installer/build/Release/payload" `
+            -Recurse `
+            -Force
+
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: f-Tintia-installer
+          path: installer/build/Release/f.Tintia Setup.exe
+
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
         with:
-          name: f-Tintra-windows
+          name: f-Tintia-windows
           path: build/windows/x64/runner/Release/
