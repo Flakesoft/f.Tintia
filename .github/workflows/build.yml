@@ -91,30 +91,30 @@ jobs:
       - name: Prepare installer payload
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path installer/payload | Out-Null
+          New-Item -ItemType Directory -Force -Path windows/installer/payload | Out-Null
 
           Copy-Item `
             -Path "build/windows/x64/runner/Release/*" `
-            -Destination "installer/payload/" `
+            -Destination "windows/installer/payload/" `
             -Recurse `
             -Force
 
       - name: Configure installer
         shell: pwsh
         run: |
-          cmake -S installer -B installer/build
+          cmake -S windows/installer -B windows/installer/build
 
       - name: Build installer
         shell: pwsh
         run: |
-          cmake --build installer/build --config Release
+          cmake --build windows/installer/build --config Release
 
       - name: Copy installer payload
         shell: pwsh
         run: |
           Copy-Item `
-            -Path "installer/payload" `
-            -Destination "installer/build/Release/payload" `
+            -Path "windows/installer/payload" `
+            -Destination "windows/installer/build/Release/payload" `
             -Recurse `
             -Force
 
@@ -122,7 +122,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: f-Tintia-installer
-          path: installer/build/Release/f.Tintia Setup.exe
+          path: "windows/installer/build/Release/f.Tintia Setup.exe"
 
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
