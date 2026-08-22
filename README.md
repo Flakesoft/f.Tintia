@@ -2,7 +2,7 @@
 
 <img width="300" alt="image" src="https://github.com/user-attachments/assets/529333f7-a765-42c3-87be-e68f2877c88e" />
 
-f.Tintra is a free and open-source color picker for Android. Simply open an image, tap any pixel, and instantly copy its color in HEX or RGB format.
+f.Tintia is a free and open-source color picker for Android. Simply open an image, tap any pixel, and instantly copy its color in HEX or RGB format.
 
 Built with Flutter and designed with Material 3.
 
@@ -61,4 +61,4 @@ Please open an Issue before submitting major changes.
 
 ## About Flakesoft
 
-f.Tintra is developed by Flakesoft, an open-source software project focused on creating simple, modern and privacy-friendly applications.
+f.Tintia is developed by Flakesoft, an open-source software project focused on creating simple, modern and privacy-friendly applications.
