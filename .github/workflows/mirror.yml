@@ -16,5 +16,5 @@ jobs:
 
       - name: Push to Codeberg
         run: |
-          git remote add codeberg https://${{ secrets.CODEBERG_USERNAME }}:${{ secrets.CODEBERG_TOKEN }}@codeberg.org/Flakesoft/${{ github.event.repository.name }}.git
+          git remote add codeberg "https://${CODEBERG_USERNAME}:${CODEBERG_TOKEN}@codeberg.org/Flakesoft/f.Tintra.git"
           git push --mirror codeberg
