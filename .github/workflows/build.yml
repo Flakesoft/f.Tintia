@@ -122,8 +122,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: f-Tintia-installer
-          path: "windows/installer/build/Release/f.Tintia Setup.exe"
-
+          path: windows/installer/build/Release/
+          
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
         with:
