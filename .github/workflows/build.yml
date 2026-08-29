@@ -1,3 +1,4 @@
+```yaml
 name: Build
 
 on:
@@ -88,44 +89,76 @@ jobs:
       - name: Build Windows
         run: flutter build windows --release
 
-      - name: Prepare installer payload
+      - name: Prepare installer directory
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path windows/installer/payload | Out-Null
+          New-Item -ItemType Directory -Force -Path windows/installer/package | Out-Null
+          New-Item -ItemType Directory -Force -Path windows/installer/package/payload | Out-Null
 
+      - name: Copy Windows application to installer payload
+        shell: pwsh
+        run: |
           Copy-Item `
             -Path "build/windows/x64/runner/Release/*" `
-            -Destination "windows/installer/payload/" `
+            -Destination "windows/installer/package/payload/" `
             -Recurse `
             -Force
 
       - name: Configure installer
         shell: pwsh
         run: |
-          cmake -S windows/installer -B windows/installer/build
+          cmake `
+            -S windows/installer `
+            -B windows/installer/build `
+            -DCMAKE_BUILD_TYPE=Release
 
       - name: Build installer
         shell: pwsh
         run: |
-          cmake --build windows/installer/build --config Release
+          cmake `
+            --build windows/installer/build `
+            --config Release
 
-      - name: Copy installer payload
+      - name: Copy installer into package
         shell: pwsh
         run: |
           Copy-Item `
-            -Path "windows/installer/payload" `
-            -Destination "windows/installer/build/Release/payload" `
-            -Recurse `
+            -Path "windows/installer/build/Release/f.Tintia Setup.exe" `
+            -Destination "windows/installer/package/f.Tintia Setup.exe" `
             -Force
 
-      - name: Upload Windows installer
+      - name: Verify installer package
+        shell: pwsh
+        run: |
+          Write-Host "Installer package:"
+          Get-ChildItem `
+            -Path "windows/installer/package" `
+            -Recurse
+
+          if (-not (Test-Path "windows/installer/package/f.Tintia Setup.exe")) {
+            Write-Error "Installer executable was not found."
+            exit 1
+          }
+
+          if (-not (Test-Path "windows/installer/package/payload/f_tintra.exe")) {
+            Write-Error "f_tintra.exe was not found in the installer payload."
+            exit 1
+          }
+
+          if (-not (Test-Path "windows/installer/package/payload/data")) {
+            Write-Error "Flutter data directory was not found in the installer payload."
+            exit 1
+          }
+
+      - name: Upload Windows installer package
         uses: actions/upload-artifact@v4
         with:
           name: f-Tintia-installer
-          path: windows/installer/build/Release/
-          
-      - name: Upload Windows build
+          path: windows/installer/package/
+
+      - name: Upload Windows portable build
         uses: actions/upload-artifact@v4
         with:
           name: f-Tintia-windows
           path: build/windows/x64/runner/Release/
+```
