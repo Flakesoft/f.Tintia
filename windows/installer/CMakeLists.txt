@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(f_tintia_installer WIN32
     main.cpp
     installer.rc
+    installer.manifest
 )
 
 target_compile_definitions(f_tintia_installer PRIVATE

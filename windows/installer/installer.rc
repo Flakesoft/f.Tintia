@@ -1,5 +1,6 @@
 #include <windows.h>
 
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "installer.manifest"
 IDI_APP_ICON ICON "../runner/resources/app_icon.ico"
 
 
