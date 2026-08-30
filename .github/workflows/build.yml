@@ -139,7 +139,7 @@ jobs:
             exit 1
           }
 
-          if (-not (Test-Path "windows/installer/package/payload/f_tintra.exe")) {
+          if (-not (Test-Path "windows/installer/package/payload/f_tintia.exe")) {
             Write-Error "f_tintra.exe was not found in the installer payload."
             exit 1
           }

@@ -19,7 +19,7 @@ HWND g_installPath = nullptr;
 HWND g_desktopShortcut = nullptr;
 
 const wchar_t* kAppName = L"f.Tintia";
-const wchar_t* kExecutable = L"f_tintra.exe";
+const wchar_t* kExecutable = L"f_tintia.exe";
 
 std::wstring GetInstallerDirectory() {
     wchar_t path[MAX_PATH];
@@ -193,7 +193,7 @@ bool CreateUninstallEntry(
 
     const std::wstring displayIcon =
         installPath +
-        L"\\f_tintra.exe";
+        L"\\f_tintia.exe";
 
     RegSetValueExW(
         key,
