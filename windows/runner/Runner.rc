@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "f.Tintia" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "f_tintia" "\0"
-            VALUE "LegalCopyright", "This program and all of its components are licensed under GNU General Public License v3.0. More information can be found inside the LICENSE file." "\0"
+            VALUE "LegalCopyright", "This program and all of its components are licensed under GNU General Public License v3.0. More information can be found inside the LICENSE file or at https://www.gnu.org/licenses." "\0"
             VALUE "OriginalFilename", "f_tintia.exe" "\0"
             VALUE "ProductName", "f.Tintia" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
