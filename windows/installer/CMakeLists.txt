@@ -8,7 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(f_tintia_installer WIN32
     main.cpp
     installer.rc
-    installer.manifest
 )
 
 target_compile_definitions(f_tintia_installer PRIVATE
@@ -24,4 +23,5 @@ target_link_libraries(f_tintia_installer PRIVATE
 
 set_target_properties(f_tintia_installer PROPERTIES
     OUTPUT_NAME "f.Tintia Setup"
+    LINK_FLAGS "/MANIFESTUAC:level='requireAdministrator'"
 )
