@@ -218,7 +218,7 @@ bool CreateUninstallEntry(
             L"1.0.0"
         ),
         static_cast<DWORD>(
-            (wcslen(L"1.0.0") + 1) *
+            (wcslen(L"1.1.5") + 1) *
             sizeof(wchar_t)
         )
     );
