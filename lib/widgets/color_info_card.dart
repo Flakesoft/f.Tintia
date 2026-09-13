@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,13 +13,11 @@ class ColorInfoCard extends StatefulWidget {
   });
 
   @override
-  State<ColorInfoCard> createState() =>
-      _ColorInfoCardState();
+  State<ColorInfoCard> createState() => _ColorInfoCardState();
 }
 
 class _ColorInfoCardState extends State<ColorInfoCard> {
-  final PageController _pageController =
-      PageController();
+  final PageController _pageController = PageController();
 
   int _currentPage = 0;
   bool _isSaved = false;
@@ -39,8 +35,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
   ) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.color.toARGB32() !=
-        widget.color.toARGB32()) {
+    if (oldWidget.color.toARGB32() != widget.color.toARGB32()) {
       _checkIfSaved();
     }
   }
@@ -52,8 +47,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
   }
 
   Future<void> _checkIfSaved() async {
-    final savedColors =
-        await ColorHistoryService.getSavedColors();
+    final savedColors = await ColorHistoryService.getSavedColors();
 
     if (!mounted) {
       return;
@@ -77,13 +71,9 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
     });
 
     if (_isSaved) {
-      await ColorHistoryService.removeColor(
-        widget.color,
-      );
+      await ColorHistoryService.removeColor(widget.color);
     } else {
-      await ColorHistoryService.saveColor(
-        widget.color,
-      );
+      await ColorHistoryService.saveColor(widget.color);
     }
 
     if (!mounted) {
@@ -98,12 +88,9 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          _isSaved
-              ? 'Color saved'
-              : 'Color removed',
+          _isSaved ? 'Color saved' : 'Color removed',
         ),
-        duration:
-            const Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
@@ -114,9 +101,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
     String label,
   ) async {
     await Clipboard.setData(
-      ClipboardData(
-        text: text,
-      ),
+      ClipboardData(text: text),
     );
 
     if (!context.mounted) {
@@ -126,8 +111,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('$label copied'),
-        duration:
-            const Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
@@ -140,18 +124,15 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
     final theme = Theme.of(context);
 
     return Column(
-      mainAxisAlignment:
-          MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           label,
-          style:
-              theme.textTheme.labelLarge,
+          style: theme.textTheme.labelLarge,
         ),
         const SizedBox(height: 12),
         InkWell(
-          borderRadius:
-              BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16),
           onTap: () => _copyText(
             context,
             value,
@@ -159,34 +140,24 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
           ),
           child: Card(
             elevation: 0,
-            color: theme
-                .colorScheme
-                .surfaceContainerHighest,
+            color: theme.colorScheme.surfaceContainerHighest,
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 24,
                 vertical: 16,
               ),
               child: Row(
-                mainAxisSize:
-                    MainAxisSize.min,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     value,
-                    style: theme
-                        .textTheme
-                        .titleMedium,
+                    style: theme.textTheme.titleMedium,
                   ),
-                  const SizedBox(
-                    width: 12,
-                  ),
+                  const SizedBox(width: 12),
                   Icon(
                     Icons.copy,
                     size: 18,
-                    color: theme
-                        .colorScheme
-                        .onSurfaceVariant,
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ],
               ),
@@ -199,28 +170,12 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
 
   @override
   Widget build(BuildContext context) {
-    final scheme =
-        Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
 
-    final hex =
-        ColorPickerService.getHex(
-      widget.color,
-    );
-
-    final rgb =
-        ColorPickerService.getRgb(
-      widget.color,
-    );
-
-    final hsv =
-        ColorPickerService.getHsv(
-      widget.color,
-    );
-
-    final hsl =
-        ColorPickerService.getHsl(
-      widget.color,
-    );
+    final hex = ColorPickerService.getHex(widget.color);
+    final rgb = ColorPickerService.getRgb(widget.color);
+    final hsv = ColorPickerService.getHsv(widget.color);
+    final hsl = ColorPickerService.getHsl(widget.color);
 
     final pages = [
       _buildFormatPage(
@@ -252,8 +207,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
           height: 120,
           decoration: BoxDecoration(
             color: widget.color,
-            borderRadius:
-                BorderRadius.circular(28),
+            borderRadius: BorderRadius.circular(28),
             border: Border.all(
               color: scheme.outlineVariant,
               width: 1,
@@ -261,9 +215,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
             boxShadow: [
               BoxShadow(
                 blurRadius: 12,
-                color: Colors.black.withValues(
-                  alpha: 0.12,
-                ),
+                color: Colors.black.withValues(alpha: 0.12),
               ),
             ],
           ),
@@ -272,19 +224,12 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
         const SizedBox(height: 16),
 
         FilledButton.icon(
-          onPressed:
-              _isSaving
-                  ? null
-                  : _toggleSavedColor,
+          onPressed: _isSaving ? null : _toggleSavedColor,
           icon: Icon(
-            _isSaved
-                ? Icons.bookmark
-                : Icons.bookmark_border,
+            _isSaved ? Icons.bookmark : Icons.bookmark_border,
           ),
           label: Text(
-            _isSaved
-                ? 'Saved color'
-                : 'Save color',
+            _isSaved ? 'Saved color' : 'Save color',
           ),
         ),
 
@@ -292,13 +237,8 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
 
         if (_isSaved)
           TextButton(
-            onPressed:
-                _isSaving
-                    ? null
-                    : _toggleSavedColor,
-            child: const Text(
-              'Remove saved color',
-            ),
+            onPressed: _isSaving ? null : _toggleSavedColor,
+            child: const Text('Remove saved color'),
           ),
 
         const SizedBox(height: 8),
@@ -306,17 +246,14 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
         SizedBox(
           height: 110,
           child: PageView.builder(
-            controller:
-                _pageController,
-            itemCount:
-                pages.length,
+            controller: _pageController,
+            itemCount: pages.length,
             onPageChanged: (index) {
               setState(() {
                 _currentPage = index;
               });
             },
-            itemBuilder:
-                (context, index) {
+            itemBuilder: (context, index) {
               return pages[index];
             },
           ),
@@ -325,35 +262,20 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
         const SizedBox(height: 8),
 
         Row(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
-          children:
-              List.generate(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
             pages.length,
             (index) {
               return AnimatedContainer(
-                duration:
-                    const Duration(
-                  milliseconds: 200,
-                ),
-                margin:
-                    const EdgeInsets.symmetric(
-                  horizontal: 4,
-                ),
-                width:
-                    _currentPage == index
-                        ? 20
-                        : 8,
+                duration: const Duration(milliseconds: 200),
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                width: _currentPage == index ? 20 : 8,
                 height: 8,
-                decoration:
-                    BoxDecoration(
-                  color:
-                      _currentPage == index
-                          ? scheme.primary
-                          : scheme
-                              .outlineVariant,
-                  borderRadius:
-                      BorderRadius.circular(8),
+                decoration: BoxDecoration(
+                  color: _currentPage == index
+                      ? scheme.primary
+                      : scheme.outlineVariant,
+                  borderRadius: BorderRadius.circular(8),
                 ),
               );
             },
@@ -364,12 +286,8 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
 
         Text(
           'Swipe to view formats • Tap value to copy',
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(
-                color:
-                    scheme.onSurfaceVariant,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: scheme.onSurfaceVariant,
               ),
         ),
       ],
