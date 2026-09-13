@@ -23,7 +23,7 @@ class EmptyState extends StatelessWidget {
         ),
 
         Text(
-          'Select an image to begin',
+          'pick an image to get started.',
           style: Theme.of(context)
               .textTheme
               .titleMedium,
@@ -31,19 +31,6 @@ class EmptyState extends StatelessWidget {
 
         const SizedBox(
           height: 4,
-        ),
-
-        Text(
-          'Choose an image and tap anywhere to inspect its colors.',
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(
-                color: Theme.of(context)
-                    .colorScheme
-                    .onSurfaceVariant,
-              ),
         ),
       ],
     );

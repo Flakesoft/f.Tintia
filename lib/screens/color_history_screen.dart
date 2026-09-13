@@ -67,18 +67,18 @@ class _ColorHistoryScreenState extends State<ColorHistoryScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Clear color history?'),
+          title: const Text('clear color history?'),
           content: const Text(
-            'All saved colors will be removed from your history.',
+            'all saved colors will be removed from your history.',
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child: const Text('cancel'),
             ),
             FilledButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Clear'),
+              child: const Text('clear'),
             ),
           ],
         );
@@ -101,7 +101,7 @@ class _ColorHistoryScreenState extends State<ColorHistoryScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Color history cleared'),
+        content: Text('color history cleared.'),
         duration: Duration(seconds: 2),
       ),
     );
@@ -120,7 +120,7 @@ class _ColorHistoryScreenState extends State<ColorHistoryScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$hex copied'),
+        content: Text('$hex copied.'),
         duration: const Duration(seconds: 2),
       ),
     );
@@ -159,7 +159,7 @@ class _ColorHistoryScreenState extends State<ColorHistoryScreen> {
                     ),
                   ),
                   IconButton(
-                    tooltip: 'Remove color',
+                    tooltip: 'remove color',
                     onPressed: () => _removeColor(color),
                     icon: const Icon(Icons.delete_outline),
                   ),
@@ -195,7 +195,7 @@ class _ColorHistoryScreenState extends State<ColorHistoryScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Save colors from the color picker and they will appear here.',
+              'save colors from the color picker and they will appear here.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: scheme.onSurfaceVariant,
               ),
@@ -211,7 +211,7 @@ class _ColorHistoryScreenState extends State<ColorHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Color History'),
+        title: const Text('color history'),
         actions: [
           if (_savedColors.isNotEmpty)
             IconButton(

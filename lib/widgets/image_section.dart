@@ -81,8 +81,8 @@ class ImageSection extends StatelessWidget {
 
           label: Text(
             imageState == null
-                ? 'Select image'
-                : 'Choose another image',
+                ? 'select image'
+                : 'pick another image',
           ),
         ),
       ],

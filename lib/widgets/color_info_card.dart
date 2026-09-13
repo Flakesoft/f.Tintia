@@ -88,7 +88,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          _isSaved ? 'Color saved' : 'Color removed',
+          _isSaved ? 'color saved' : 'color removed',
         ),
         duration: const Duration(seconds: 2),
       ),
@@ -229,7 +229,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
             _isSaved ? Icons.bookmark : Icons.bookmark_border,
           ),
           label: Text(
-            _isSaved ? 'Saved color' : 'Save color',
+            _isSaved ? 'saved color' : 'save color',
           ),
         ),
 
@@ -238,7 +238,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
         if (_isSaved)
           TextButton(
             onPressed: _isSaving ? null : _toggleSavedColor,
-            child: const Text('Remove saved color'),
+            child: const Text('remove saved color'),
           ),
 
         const SizedBox(height: 8),
@@ -285,7 +285,7 @@ class _ColorInfoCardState extends State<ColorInfoCard> {
         const SizedBox(height: 12),
 
         Text(
-          'Swipe to view formats • Tap value to copy',
+          'swipe to view formats • tap value to copy',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: scheme.onSurfaceVariant,
               ),

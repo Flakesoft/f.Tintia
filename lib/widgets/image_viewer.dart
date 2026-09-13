@@ -194,7 +194,7 @@ class _ImageViewerState extends State<ImageViewer> {
 
 
         Text(
-          'Pinch to zoom • Move with two fingers',
+          'pinch or use mouse to zoom • move with two fingers',
 
           style:
               Theme.of(context)

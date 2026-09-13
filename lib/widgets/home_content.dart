@@ -67,7 +67,7 @@ class HomeContent extends StatelessWidget {
         else if (imageState != null)
 
           Text(
-            'Tap the image to pick a color',
+            'tap any color on the image to learn more.',
 
             style:
                 Theme.of(context)

@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('This section is coming soon'),
+        content: Text('coming soon.'),
         duration: Duration(seconds: 2),
       ),
     );

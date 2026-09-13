@@ -21,7 +21,7 @@ class DesktopColorPanel extends StatelessWidget {
         context,
         icon: Icons.palette_outlined,
         message:
-            'Select image to show color data',
+            'select image to show color data',
       );
     }
 
@@ -30,7 +30,7 @@ class DesktopColorPanel extends StatelessWidget {
         context,
         icon: Icons.colorize_outlined,
         message:
-            'Click anywhere on image to pick color',
+            'click anywhere on image to pick color',
       );
     }
 
@@ -41,7 +41,7 @@ class DesktopColorPanel extends StatelessWidget {
             CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Color data',
+            'color data',
             style: theme.textTheme.titleLarge,
           ),
 
@@ -58,7 +58,7 @@ class DesktopColorPanel extends StatelessWidget {
           ),
 
           Text(
-            'Selected color',
+            'selected color',
             style: theme.textTheme.titleMedium,
           ),
 
@@ -96,7 +96,7 @@ class DesktopColorPanel extends StatelessWidget {
           CrossAxisAlignment.start,
       children: [
         Text(
-          'Image palette',
+          'image palette',
           style: theme.textTheme.titleMedium,
         ),
 
@@ -119,7 +119,7 @@ class DesktopColorPanel extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              'Color palette coming soon',
+              'color palette coming soon',
               style:
                   theme.textTheme.bodyMedium
                       ?.copyWith(

@@ -32,7 +32,7 @@ class AppSidebar extends StatelessWidget {
         NavigationDrawerDestination(
           icon: Icon(Icons.home_outlined),
           selectedIcon: Icon(Icons.home),
-          label: Text('Home'),
+          label: Text('home'),
         ),
 
         NavigationDrawerDestination(
@@ -42,7 +42,7 @@ class AppSidebar extends StatelessWidget {
           selectedIcon: Icon(
             Icons.history,
           ),
-          label: Text('Color History'),
+          label: Text('color history'),
         ),
 
         NavigationDrawerDestination(
@@ -52,7 +52,7 @@ class AppSidebar extends StatelessWidget {
           selectedIcon: Icon(
             Icons.palette,
           ),
-          label: Text('Color Palette'),
+          label: Text('color palette'),
         ),
 
         NavigationDrawerDestination(
@@ -62,7 +62,7 @@ class AppSidebar extends StatelessWidget {
           selectedIcon: Icon(
             Icons.settings,
           ),
-          label: Text('Settings'),
+          label: Text('settings'),
         ),
       ],
     );
