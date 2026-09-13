@@ -15,7 +15,7 @@ dependencies:
 
   flutter_colorpicker: ^1.0.3
   color: ^3.0.0
-
+  google_fonts: ^8.2.1
   provider: ^6.0.0
 
   image_picker: ^1.2.0
