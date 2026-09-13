@@ -28,6 +28,7 @@ class FTintraApp extends StatelessWidget {
                   brightness: Brightness.light,
                 ),
             useMaterial3: true,
+            textTheme: GoogleFonts.poppinsTextTheme(),
           ),
 
           darkTheme: ThemeData(
