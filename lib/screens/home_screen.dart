@@ -144,20 +144,19 @@ class _HomeScreenState extends State<HomeScreen> {
   ) {
     // Home
     if (index == 0) {
-      Navigator.of(context).pop();
+      Scaffold.maybeOf(context)?.closeDrawer();
       return;
     }
 
-    // Color History
+    // Saved colors
     if (index == 1) {
-      Navigator.of(context).pop();
-
+      Scaffold.maybeOf(context)?.closeDrawer();
       _openColorHistory();
       return;
     }
 
     // Color Palette and Settings are not implemented yet.
-    Navigator.of(context).pop();
+    Scaffold.maybeOf(context)?.closeDrawer();
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
