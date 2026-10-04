@@ -211,7 +211,7 @@ class _ColorHistoryScreenState extends State<ColorHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('color history'),
+        title: const Text('saved colors'),
         actions: [
           if (_savedColors.isNotEmpty)
             IconButton(
