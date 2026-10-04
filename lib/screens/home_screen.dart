@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
 
   final GlobalKey _imageKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final TransformationController _transformationController =
       TransformationController();
@@ -144,20 +145,19 @@ class _HomeScreenState extends State<HomeScreen> {
   ) {
     // Home
     if (index == 0) {
-      Navigator.of(context).pop();
+      _scaffoldKey.currentState?.closeDrawer();
       return;
     }
 
-    // Color History
+    // Saved colors
     if (index == 1) {
-      Navigator.of(context).pop();
-
+      Scaffold.maybeOf(context)?.closeDrawer();
       _openColorHistory();
       return;
     }
 
     // Color Palette and Settings are not implemented yet.
-    Navigator.of(context).pop();
+    Scaffold.maybeOf(context)?.closeDrawer();
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -188,6 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
             !LayoutBreakpoints.isDesktop(width);
 
         return Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             title: const Text('f.Tintia'),
             centerTitle: true,
