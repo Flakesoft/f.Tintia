@@ -63,4 +63,6 @@ Please open an Issue before submitting major changes.
 
 f.Tintia is developed by Flakesoft, an open-source software project focused on creating simple, modern and privacy-friendly applications.
 
+(c) Flakesoft 2026. Licensed under the GNU General Public License v3.0.
+
 <!-- lansiraj.dev code: lansiraj-9991b604c8d6 -->
