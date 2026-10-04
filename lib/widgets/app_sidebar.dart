@@ -42,7 +42,7 @@ class AppSidebar extends StatelessWidget {
           selectedIcon: Icon(
             Icons.history,
           ),
-          label: Text('color history'),
+          label: Text('saved colors'),
         ),
 
         NavigationDrawerDestination(
