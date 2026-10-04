@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
 
   final GlobalKey _imageKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final TransformationController _transformationController =
       TransformationController();
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ) {
     // Home
     if (index == 0) {
-      Scaffold.maybeOf(context)?.closeDrawer();
+      _scaffoldKey.currentState?.closeDrawer();
       return;
     }
 
@@ -187,6 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
             !LayoutBreakpoints.isDesktop(width);
 
         return Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             title: const Text('f.Tintia'),
             centerTitle: true,
